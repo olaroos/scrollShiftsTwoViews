@@ -60,7 +60,7 @@ class FourthViewController: UIViewController, UIScrollViewDelegate {
         } else {
             newTopFrame = CGRect(x: topView.frame.origin.x, y: topView.frame.origin.y, width: topView.frame.width, height: 0)
             // if there is space above container, it should be added to y here
-            newScrollFrame = CGRect(x: scrollView.frame.origin.x, y: 20, width: scrollView.frame.width, height: maxScrollOffset)
+            newScrollFrame = CGRect(x: scrollView.frame.origin.x, y: 0, width: scrollView.frame.width, height: maxScrollOffset)
             previousOffset = defaultTopHeight * scale
         }
         topView.frame = newTopFrame
