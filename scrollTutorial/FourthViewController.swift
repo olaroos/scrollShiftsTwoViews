@@ -12,23 +12,25 @@ class FourthViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var scrollView: CustomScrollView!
+    @IBOutlet weak var scrollSubView: UIView!
     
     var newTopFrame: CGRect!
     var newScrollFrame: CGRect!
+    
     var scale: CGFloat!
-
     var previousOffset: CGFloat!
     var defaultTopHeight: CGFloat!
     var first: Bool!
     
     var defaultScrollHeight: CGFloat!
     var maxScrollOffset: CGFloat!
-        
+    var maxScale: CGFloat!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
         
-        scale = 3
+        scale = 4
         previousOffset = 0
         defaultTopHeight = topView.frame.height
         first = true
@@ -54,6 +56,11 @@ class FourthViewController: UIViewController, UIScrollViewDelegate {
             // for some reason scrollView.frame.height takes on the right value after viewDidLoad() is run
             defaultScrollHeight = scrollView.frame.height
             maxScrollOffset = defaultTopHeight + defaultScrollHeight
+            maxScale = (scrollSubView.frame.height - (defaultTopHeight + defaultScrollHeight))/defaultTopHeight
+            if (scale > maxScale){
+                print(maxScale)
+                scale = maxScale
+            }
             first = false
         }
         updateFrames(scrollView.contentOffset.y)

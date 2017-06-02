@@ -153,6 +153,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="scrollSubView" destination="fNv-vF-sqy" id="RWy-wD-HX1"/>
                         <outlet property="scrollView" destination="t7w-QV-5Kk" id="D0D-sc-efx"/>
                         <outlet property="topView" destination="N8c-aF-dfG" id="SWu-dV-gHe"/>
                     </connections>
