@@ -20,7 +20,6 @@ class FourthViewController: UIViewController, UIScrollViewDelegate {
     var scale: CGFloat!
     var previousOffset: CGFloat!
     var defaultTopHeight: CGFloat!
-    var first: Bool!
     
     var defaultScrollHeight: CGFloat!
     var maxScrollOffset: CGFloat!
@@ -29,40 +28,48 @@ class FourthViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //set topview cover-speed
         scale = 4
         previousOffset = 0
         defaultTopHeight = topView.frame.height
-        first = true
+        
+        defaultScrollHeight = scrollView.frame.height
+        maxScrollOffset = defaultTopHeight + defaultScrollHeight
+        maxScale = (scrollSubView.frame.height - (defaultTopHeight + defaultScrollHeight)) / defaultTopHeight
+        
+        print("defaultScrollHeight")
+        print(defaultScrollHeight)
+        print("defaultTopHeight")
+        print(defaultTopHeight)
+        print("maxScrollOffset")
+        print(maxScrollOffset)
+        if (scale > maxScale){
+            scale = maxScale
+        }
     }
     
     func updateFrames(_ newOffset: CGFloat){
-        let diff: CGFloat = (newOffset - previousOffset)/scale
-        if (newOffset/scale <= defaultTopHeight){
+        let diff: CGFloat = (newOffset - previousOffset) / scale
+        if (newOffset / scale <= defaultTopHeight){
             newTopFrame = CGRect(x: topView.frame.origin.x, y: topView.frame.origin.y, width: topView.frame.width, height: topView.frame.height - diff)
             newScrollFrame = CGRect(x: scrollView.frame.origin.x, y: scrollView.frame.origin.y - diff, width: scrollView.frame.width, height: scrollView.frame.height + diff)
             previousOffset = newOffset
         } else {
             newTopFrame = CGRect(x: topView.frame.origin.x, y: topView.frame.origin.y, width: topView.frame.width, height: 0)
-            newScrollFrame = CGRect(x: scrollView.frame.origin.x, y: 0, width: scrollView.frame.width, height: defaultScrollHeight + defaultTopHeight)
-            previousOffset = defaultTopHeight*scale
+            // if there is space above container, it should be added to y here
+            newScrollFrame = CGRect(x: scrollView.frame.origin.x, y: 20, width: scrollView.frame.width, height: maxScrollOffset)
+            previousOffset = defaultTopHeight * scale
         }
         topView.frame = newTopFrame
         scrollView.frame = newScrollFrame
+        print(defaultTopHeight)
+        print(maxScrollOffset)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (first == true){
-            // for some reason scrollView.frame.height takes on the right value after viewDidLoad() is run
-            defaultScrollHeight = scrollView.frame.height
-            maxScrollOffset = defaultTopHeight + defaultScrollHeight
-            maxScale = (scrollSubView.frame.height - (defaultTopHeight + defaultScrollHeight))/defaultTopHeight
-            if (scale > maxScale){
-                print(maxScale)
-                scale = maxScale
-            }
-            first = false
-        }
         updateFrames(scrollView.contentOffset.y)
     }
 }
