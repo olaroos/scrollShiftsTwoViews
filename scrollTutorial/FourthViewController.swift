@@ -24,38 +24,29 @@ class FourthViewController: UIViewController, UIScrollViewDelegate {
     var defaultScrollHeight: CGFloat!
     var maxScrollOffset: CGFloat!
     var maxScale: CGFloat!
+    var disableScroll: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
+        disableScroll = false
+        //let screenSize: CGRect = UIScreen.main.bounds
+        //let screenWidth = screenSize.width
+        //let screenHeight = screenSize.height
         
-        let screenSize: CGRect = UIScreen.main.bounds
-        
-        let screenWidth = screenSize.width
-        let screenHeight = screenSize.height
-        print("screenWidth")
-        print(screenWidth)
-        print("screenHeight")
-        print(screenHeight)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //set topview cover-speed
+        //set inverse topview cover-speed
         scale = 4
         previousOffset = 0
         defaultTopHeight = topView.frame.height
-        
         defaultScrollHeight = scrollView.frame.height
         maxScrollOffset = defaultTopHeight + defaultScrollHeight
         maxScale = (scrollSubView.frame.height - (defaultTopHeight + defaultScrollHeight)) / defaultTopHeight
-        
-        print("defaultScrollHeight")
-        print(defaultScrollHeight)
-        print("defaultTopHeight")
-        print(defaultTopHeight)
-        print("maxScrollOffset")
-        print(maxScrollOffset)
-        if (scale > maxScale){
+        if (maxScale < 1){
+            disableScroll = true
+        } else if (scale > maxScale){
             scale = maxScale
         }
     }
@@ -74,11 +65,12 @@ class FourthViewController: UIViewController, UIScrollViewDelegate {
         }
         topView.frame = newTopFrame
         scrollView.frame = newScrollFrame
-        print(defaultTopHeight)
-        print(maxScrollOffset)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateFrames(scrollView.contentOffset.y)
+        if (disableScroll == false){
+            updateFrames(scrollView.contentOffset.y)
+        }
+        
     }
 }
