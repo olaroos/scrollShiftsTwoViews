@@ -28,6 +28,15 @@ class FourthViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
+        
+        let screenSize: CGRect = UIScreen.main.bounds
+        
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
+        print("screenWidth")
+        print(screenWidth)
+        print("screenHeight")
+        print(screenHeight)
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -163,6 +163,7 @@
                             <constraint firstItem="4GZ-H6-jrV" firstAttribute="leading" secondItem="Eti-7K-2ZF" secondAttribute="leading" id="E9z-zm-axR"/>
                             <constraint firstAttribute="trailing" secondItem="4GZ-H6-jrV" secondAttribute="trailing" id="Fym-2B-zWh"/>
                             <constraint firstItem="4GZ-H6-jrV" firstAttribute="top" secondItem="Eti-7K-2ZF" secondAttribute="top" constant="64" id="OXj-qj-JuF"/>
+                            <constraint firstItem="gji-FX-YYa" firstAttribute="top" secondItem="4GZ-H6-jrV" secondAttribute="bottom" constant="103" id="RE4-4L-XPO"/>
                             <constraint firstItem="4GZ-H6-jrV" firstAttribute="width" secondItem="Eti-7K-2ZF" secondAttribute="width" id="khC-bR-X6G"/>
                         </constraints>
                     </view>
